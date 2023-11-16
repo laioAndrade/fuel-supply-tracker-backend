@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateFuelSupplyDto } from './dto/createFuelSupply.dto';
 import { FuelSupplyService } from './fuel-supply.service';
 
@@ -8,6 +8,11 @@ export class FuelSupplyController {
 
   @Post()
   async create(@Body() createFuelSupplyDto: CreateFuelSupplyDto) {
-    this.fuelSupplyService.createFuelSupply(createFuelSupplyDto);
+    return this.fuelSupplyService.createFuelSupply(createFuelSupplyDto);
+  }
+
+  @Get(':driverCpf')
+  async findByDriver(@Param('driverCpf') driverCpf: string) {
+    return this.fuelSupplyService.findByDriver(driverCpf);
   }
 }
