@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { FuelTypes } from 'src/fuel-types/fuel-types.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class FuelSupply {
@@ -8,12 +16,16 @@ export class FuelSupply {
   @Column()
   driver: string;
 
-  @Column()
-  fuelType: string;
+  @ManyToOne(() => FuelTypes, { eager: true })
+  @JoinColumn({ name: 'fuelTypeId' })
+  fuelType: FuelTypes;
 
-  @Column()
-  fuelPrice: number;
+  @Column('float')
+  fuelSupplyPrice: number;
 
-  @Column()
+  @Column('float')
   fuelLevel: number;
+
+  @CreateDateColumn()
+  date: Date;
 }
