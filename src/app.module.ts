@@ -7,6 +7,13 @@ import { FuelSupplyService } from './fuel-supply/fuel-supply.service';
 import { FuelSupplyModule } from './fuel-supply/fuel-supply.module';
 import { DataSource } from 'typeorm';
 import { FuelSupply } from './fuel-supply/fuel-supply.entity';
+import { DriversModule } from './drivers/drivers.module';
+import { DriversController } from './drivers/drivers.controller';
+import { DriversService } from './drivers/drivers.service';
+import { Driver } from './drivers/driver.entity';
+import { FuelTypesController } from './fuel-types/fuel-types.controller';
+import { FuelTypesService } from './fuel-types/fuel-types.service';
+import { FuelTypesModule } from './fuel-types/fuel-types.module';
 
 @Module({
   imports: [
@@ -17,14 +24,21 @@ import { FuelSupply } from './fuel-supply/fuel-supply.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [FuelSupply],
+      entities: [FuelSupply, Driver],
       synchronize: true,
       autoLoadEntities: true,
     }),
     FuelSupplyModule,
+    DriversModule,
+    FuelTypesModule,
   ],
-  controllers: [AppController, FuelSupplyController],
-  providers: [AppService, FuelSupplyService],
+  controllers: [
+    AppController,
+    FuelSupplyController,
+    DriversController,
+    FuelTypesController,
+  ],
+  providers: [AppService, FuelSupplyService, DriversService, FuelTypesService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
