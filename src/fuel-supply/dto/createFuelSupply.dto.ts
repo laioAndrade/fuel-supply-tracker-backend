@@ -5,7 +5,7 @@ export class CreateFuelSupplyDto {
   driver: string;
 
   // @IsNotEmpty()
-  fuelType: string;
+  fuelTypeId: string;
 
   // @IsNotEmpty()
   fuelLevel: number;
